@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using AngleSharp;
 using AngleSharp.Dom.Html;
 using Microsoft.AspNetCore.Mvc;
 using SiennaBadger.Data.Models;
 using SiennaBadger.Models;
 
-namespace SiennaBadger.Controllers
+namespace SiennaBadger.Web.Controllers
 {
     public class HomeController : Controller
     {

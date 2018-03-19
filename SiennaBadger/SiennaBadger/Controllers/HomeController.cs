@@ -16,36 +16,10 @@ namespace SiennaBadger.Web.Controllers
             return View();
         }
 
-        public IActionResult Summary()
+        public IActionResult About()
         {
-            PageSummary pageSummary = new PageSummary();
-            List<Image> images = new List<Image>();
-            List<Word> words = new List<Word>();
-
-            var config = Configuration.Default.WithDefaultLoader();
-            // Load the names of all The Big Bang Theory episodes from Wikipedia
-            var address = "https://www.nhl.com";
-            // Asynchronously get the document in a new context using the configuration
-            var document = BrowsingContext.New(config).OpenAsync(address).Result;
-
-            var headings = document.All
-                .OfType<IHtmlHeadingElement>()
-                .Select(h => h.TextContent.Trim())
-                .ToList();
-            foreach (var heading in headings)
-            {
-                words.Add(new Word() { Text = heading });
-            }
-
-            foreach (var item in document.Images)
-            {
-                images.Add(new Image() { Url = item.Source });
-            }
-
-            pageSummary.Words = words;
-            pageSummary.Images = images;
-
-            return View(pageSummary);
+           
+            return View();
         }
 
         public IActionResult Error()

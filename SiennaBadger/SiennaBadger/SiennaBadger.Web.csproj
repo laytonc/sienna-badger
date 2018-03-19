@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SiennaBadger.Data\SiennaBadger.Data.csproj" />
+    <ProjectReference Include="..\SiennaBadger.Services\SiennaBadger.Services.csproj" />
   </ItemGroup>
 
 </Project>

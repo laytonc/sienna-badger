@@ -6,7 +6,7 @@
     <div class="col-lg-12">
         <h1 class="page-header">
             Web Scraper
-            <small>Summary - https://www.easi.com</small>
+            <small id="SummaryTitle">Summary</small>
         </h1>
     </div>
 </div>
@@ -16,8 +16,8 @@
     <div class="col-lg-6">
         <h5 style="text-transform: uppercase;font-weight: 700;font-family: 'Roboto Condensed', sans-serif;line-height: 1.1;">Enter Scrape Target</h5>
         <div class="form-group input-group">
-            <input type="text" class="form-control" value="http://">
-            <span class="input-group-btn"><button class="btn btn-default" type="button"><i class="fa fa-download"></i></button></span>
+            <input id="ParseUrl" type="text" class="form-control" value="http://">
+            <span class="input-group-btn"><button id="ParseButton" class="btn btn-default" type="button"><i class="fa fa-download"></i></button></span>
         </div>
         <p class="help-block">Enter specific URL (example http://www.yourdomain.com/page.html)</p>
     </div>
@@ -34,8 +34,8 @@
                         <i class="fa fa-comments fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">26</div>
-                        <div>Total Words</div>
+                        <div id="WordCount" class="huge">-</div>
+                        <div>Word Count</div>
                     </div>
                 </div>
             </div>
@@ -56,8 +56,8 @@
                         <i class="fa fa-image fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">12</div>
-                        <div>Images</div>
+                        <div id="ImageCount" class="huge">-</div>
+                        <div>Image Count</div>
                     </div>
                 </div>
             </div>
@@ -97,54 +97,15 @@
             <div class="panel-body">
                 <div class="flot-chart">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover table-striped">
+                        <table id="WordsTable" class="table table-bordered table-hover table-striped">
                             <thead>
                                 <tr>
                                     <th>Word</th>
-                                    <th>#</th>
+                                    <th>Count</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Super duper long word</td>
-                                    <td>20</td>
-                                </tr>
-                                <tr>
-                                    <td>Super duper long word</td>
-                                    <td>20</td>
-                                </tr>
-                                <tr>
-                                    <td>Super duper long word</td>
-                                    <td>20</td>
-                                </tr>
-                                <tr>
-                                    <td>Super duper long word</td>
-                                    <td>20</td>
-                                </tr>
-                                <tr>
-                                    <td>Super duper long word</td>
-                                    <td>20</td>
-                                </tr>
-                                <tr>
-                                    <td>Super duper long word</td>
-                                    <td>20</td>
-                                </tr>
-                                <tr>
-                                    <td>Super duper long word</td>
-                                    <td>20</td>
-                                </tr>
-                                <tr>
-                                    <td>Super duper long word</td>
-                                    <td>20</td>
-                                </tr>
-                                <tr>
-                                    <td>Super duper long word</td>
-                                    <td>20</td>
-                                </tr>
-                                <tr>
-                                    <td>Super duper long word</td>
-                                    <td>20</td>
-                                </tr>
+                                
                             </tbody>
                         </table>
 
@@ -159,81 +120,24 @@
 <a name="ImagesPanel"></a>
 <div class="row">
     <div class="col-lg-12">
-        <div class="panel panel-green">
+        <div id="ImageGallery" class="panel panel-green">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-image"></i> Images</h3>
             </div>
             <div class="panel-body">
-                <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                    <a class="thumbnail" href="#">
-                        <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-                    </a>
-                    <small>imagename.jpg</small>
-                    <p class="help-block small">400x120</p>
-                </div>
-                <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                    <a class="thumbnail" href="#">
-                        <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-                    </a>
-                    <small>imagename.jpg</small>
-                    <p class="help-block small">400x120</p>
-                </div>
-                <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                    <a class="thumbnail" href="#">
-                        <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-                    </a>
-                    <small>imagename.jpg</small>
-                    <p class="help-block small">400x120</p>
-                </div>
-                <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                    <a class="thumbnail" href="#">
-                        <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-                    </a>
-                    <small>imagename.jpg</small>
-                    <p class="help-block small">400x120</p>
-                </div>
-                <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                    <a class="thumbnail" href="#">
-                        <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                    <a class="thumbnail" href="#">
-                        <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                    <a class="thumbnail" href="#">
-                        <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                    <a class="thumbnail" href="#">
-                        <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                    <a class="thumbnail" href="#">
-                        <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                    <a class="thumbnail" href="#">
-                        <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                    <a class="thumbnail" href="#">
-                        <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                    <a class="thumbnail" href="#">
-                        <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-                    </a>
-                </div>
             </div>
         </div>
     </div>
 </div>
 <!-- /.row -->
+
+@section Scripts{
+    <!-- Flot Charts JavaScript -->
+    <!--[if lte IE 8]><script src="js/excanvas.min.js"></script><![endif]-->
+    <script src="~/js/plugins/flot/jquery.flot.js"></script>
+    <script src="~/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="~/js/plugins/flot/jquery.flot.resize.js"></script>
+    <script src="~/js/plugins/flot/jquery.flot.pie.js"></script>
+
+    <script src="~/js/home/index.js"></script>
+}

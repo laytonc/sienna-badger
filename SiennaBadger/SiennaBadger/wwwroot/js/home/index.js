@@ -1,55 +1,60 @@
-﻿$("#ParseButton").click(function () {
-    console.log("You clicked parse!");
+﻿// simple namespacing
+var wahoo = wahoo || {};
 
-    // TODO - client side validation
-    var parseUrl = $("#ParseUrl").val();
-    Search(parseUrl);
-});
-
-function Search(parseUrl) {
-    //$("#job_details_div").html("Loading...");
-
+wahoo.Search = function (parseUrl) {
+    $("#ErrorContainer").hide();
     // call api to scrape web page
-    $.post('/api/v1.0/page/parse',
+    $.post("/api/v1.0/page/parse",
         {
             parseUrl: parseUrl
         },
 
-        // TODO handle errors, check nulls
         function(data) {
             console.log(data);
+            if (data !== null) {
+                $("#SummaryTitle").html("Summary - " + parseUrl);
+                $("#WordCount").html(data.wordCount);
+                $("#ImageCount").html(data.images.length);
 
-            $("#SummaryTitle").html("Summary - " + parseUrl);
-            $("#WordCount").html(data.wordCount);
-            $("#ImageCount").html(data.images.length);
-
-            UpdateWordsTable(data.words);
-            UpdateWordsChart(data.words);
-            UpdateImageGallery(data.images);
+                if (data.words.length > 0) {
+                    wahoo.UpdateWordsTable(data.words);
+                    wahoo.UpdateWordsChart(data.words);
+                }
+                if (data.images.length > 0) {
+                    wahoo.UpdateImageGallery(data.images);
+                }
+            }
+        })
+        .fail(function (response) {
+            console.log(response);
+            $("#ErrorContainer").show();
+            $("#ErrorMessage").text(JSON.parse(response.responseText));
         });
 }
-function UpdateWordsTable(data) {
+wahoo.UpdateWordsTable = function (data) {
 
-    console.log(data);
-    var tableHTML = '';
+    var tableHtml = "";
     for (var i = 0; i < data.length; i++) {
-        tableHTML += "<tr><td>" + data[i].text + "</td><td>" + data[i].count + "</td></tr>";
+        tableHtml += "<tr><td>" + data[i].text + "</td><td>" + data[i].count + "</td></tr>";
     }
 
-    $("#WordsTable tbody").html(tableHTML);
+    $("#WordsTable tbody").html(tableHtml);
 
 }
 
-function UpdateWordsChart(data) {
+wahoo.UpdateWordsChart = function(data) {
 
-    console.log(data);
     var chartData = [];
+    //simple list of colors for the chart.
     var colors = ["red", "orange", "yellow", "green", "greenyellow", "blue", "aqua", "purple", "pink", "darkred"];
+
+    // create chart data
     for (var i = 0; i < data.length; i++) {
         chartData.push({label: data[i].text, data: data[i].count, color: colors[i]});
     }
 
-    var plotObj = $.plot($("#flot-pie-chart"), chartData, {
+    // create pie chart
+    $.plot($("#flot-pie-chart"), chartData, {
         series: {
             pie: {
                 show: true
@@ -71,13 +76,44 @@ function UpdateWordsChart(data) {
 
 }
 
-function UpdateImageGallery(data) {
+wahoo.UpdateImageGallery = function(data) {
 
-    console.log(data);
-    var galleryHmtl = '';
+    var galleryHmtl = "";
     for (var i = 0; i < data.length; i++) {
         galleryHmtl += "<div class=\"col-lg-3 col-md-4 col-xs-6 thumb\"><a target=\"_blank\" class=\"thumbnail\" href=\"" + data[i].url + "\"><img class=\"img- responsive\" src=\"" + data[i].url + "\" alt=\"\"></a><small>imagename.jpg</small><p class=\"help- block small\">400x120</p></div>";
     }
 
     $("#ImageGallery .panel-body").html(galleryHmtl);     
 }
+
+// simple url validation for now.
+wahoo.IsUrl = function (url) {
+    var regExp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+
+    if (regExp.test(url)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+// set event handlers
+$(document).ready(function () {
+   
+    $("#ParseButton").click(function () {
+        $("#ErrorContainer").hide();
+        $("#ParseForm").removeClass("has-error");
+
+        var parseUrl = $("#ParseUrl").val();
+        
+        // client side validation
+        if (wahoo.IsUrl(parseUrl)) {
+            wahoo.Search(parseUrl);
+        } else {
+
+            $("#ParseForm").addClass("has-error");
+            $("#ErrorMessage").html("Please enter a valid url to target.");
+            $("#ErrorContainer").show();
+        }
+    });
+});

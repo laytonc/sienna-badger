@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using AngleSharp;
-using AngleSharp.Dom.Html;
-using AngleSharp.Extensions;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SiennaBadger.Data.Models;
+using Microsoft.Extensions.Logging;
+using SiennaBadger.Infrastructure.Services;
 
 namespace SiennaBadger.Web.Controllers
 {
@@ -15,81 +11,37 @@ namespace SiennaBadger.Web.Controllers
     [Route("api/v{version:apiVersion}/page")]
     public class PageController : Controller
     {
+        private readonly IParserService _parserService;
+        private readonly ILogger<PageController> _logger;
+
+        public PageController(IParserService parserService, ILogger<PageController> logger)
+        {
+            _parserService = parserService;
+            _logger = logger;
+        }
+
         [HttpPost]
         [Route("parse")]
-        public PageSummary Parse(string parseUrl)
+        public async Task<IActionResult> Parse(string parseUrl)
         {
-            PageSummary pageSummary = new PageSummary();
-            List<Image> images = new List<Image>();
-            List<Word> wordList = new List<Word>();
-            
-            // TODO: validate parseUrl
-            // TODO: refactor to service
-
-            var config = Configuration.Default.WithDefaultLoader();
-
-            // TODO return async
-            // Asynchronously get the document in a new context using the configuration
-            var document = BrowsingContext.New(config).OpenAsync(parseUrl).Result;
-
-            // This CSS selector gets the desired content
-            var cellSelector = "body";
-            // Perform the query to get all cells with the content
-            var elements = document.QuerySelectorAll(cellSelector);
-            foreach (var element in elements)
+            // validate parseUrl
+            if (!Uri.IsWellFormedUriString(parseUrl, UriKind.Absolute))
             {
-                var scripts = element.GetElementsByTagName("script");
-
-                foreach (var script in scripts)
-                {
-                    script.Parent.RemoveChild(script);
-                }
-
-                scripts = element.GetElementsByTagName("style");
-
-                foreach (var script in scripts)
-                {
-                    script.Parent.RemoveChild(script);
-                }
+                return BadRequest("This service requires a well formed url to parse.");
             }
 
-
-            // We are only interested in the text - select it with LINQ
-            var text = elements.FirstOrDefault().TextContent;
-
-            // get string of words
-
-            // scrub it
-            var scrubbedText = Regex.Replace(text, "[^a-zA-Z0-9% ._]", string.Empty).ToLower();
-
-            // parse words
-            var punctuation = scrubbedText.Where(Char.IsPunctuation).Distinct().ToArray();
-            var words = scrubbedText.Split().Select(x => x.Trim(punctuation));
-            //var words = scrubbedText.Split(" ", StringSplitOptions.RemoveEmptyEntries);
-            var scrubbedWords = words.Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
-            
-            // count them
-            pageSummary.WordCount = scrubbedWords.Count();
-            wordList = scrubbedWords
-                .GroupBy(word => word)
-                .Select(kvp => new Word (){ Text = kvp.Key, Count = kvp.Count() })
-                .OrderByDescending(m=>m.Count)
-                .Take(10)
-                .ToList();
-
-
-            foreach (var item in document.Images)
+            try
             {
-                if (!string.IsNullOrEmpty(item.Source))
-                {
-                    images.Add(new Image() { Url = item.Source });
-                }
-                
-            }
+                var pageSummary = await _parserService.ParsePageAsync(parseUrl);
 
-            pageSummary.Words = wordList;
-            pageSummary.Images = images;
-            return pageSummary;
+                return Ok(pageSummary);
+            }
+            catch (Exception ex)
+            {
+                //log error
+                _logger.LogError($"Failed to parse page({parseUrl}): {ex}");
+                return BadRequest("We've had a catastrophic error. Our minions are looking at it now. We appreciate your patience.");
+            } 
         }
     }
 }

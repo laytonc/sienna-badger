@@ -6,10 +6,16 @@
 
   <ItemGroup>
     <PackageReference Include="AngleSharp" Version="0.9.9.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Extensions\" />
+    <Folder Include="Helpers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SiennaBadger.Data\SiennaBadger.Data.csproj" />
   </ItemGroup>
 
 </Project>

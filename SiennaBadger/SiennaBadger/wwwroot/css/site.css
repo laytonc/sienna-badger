@@ -11,6 +11,17 @@ body {
     background-color: #222;
 }
 
+h5 {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: 'Roboto Condensed', sans-serif;
+    line-height: 1.1;
+}
+
+#ErrorContainer {
+    display:none;
+}
+
 @media(min-width:768px) {
     body {
         margin-top: 50px;

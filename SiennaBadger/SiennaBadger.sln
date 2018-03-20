@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiennaBadger.Web", "SiennaBadger\SiennaBadger.Web.csproj", "{0CBCC3D7-69EF-473B-B176-C2D27C9573BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SiennaBadger.Web", "SiennaBadger\SiennaBadger.Web.csproj", "{0CBCC3D7-69EF-473B-B176-C2D27C9573BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiennaBadger.Tests", "SiennaBadger.Tests\SiennaBadger.Tests.csproj", "{DC2472E7-B628-4549-ABF6-F8D6D6941ED1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SiennaBadger.Tests", "SiennaBadger.Tests\SiennaBadger.Tests.csproj", "{DC2472E7-B628-4549-ABF6-F8D6D6941ED1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiennaBadger.Data", "SiennaBadger.Data\SiennaBadger.Data.csproj", "{EFBD0B69-210E-4588-894B-75A297659AFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SiennaBadger.Data", "SiennaBadger.Data\SiennaBadger.Data.csproj", "{EFBD0B69-210E-4588-894B-75A297659AFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiennaBadger.Services", "SiennaBadger.Services\SiennaBadger.Services.csproj", "{7C4078B6-52EE-4550-B7EE-3E2CA6785D04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SiennaBadger.Infrastructure", "SiennaBadger.Services\SiennaBadger.Infrastructure.csproj", "{7C4078B6-52EE-4550-B7EE-3E2CA6785D04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

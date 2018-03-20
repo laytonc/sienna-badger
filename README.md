@@ -7,18 +7,18 @@ A sample application demonstrating how to parse a web page and extract summary d
 ## Configuration
 
 ## Tools Used
-- ASP.NET Core 2.0 MVC (https://docs.microsoft.com/en-us/aspnet/core/mvc/overview)
-- jQuery (https://jquery.com/)
-- Bootstrap (http://getbootstrap.com/)
-- StartBootstrap Admin template (https://startbootstrap.com/template-overviews/sb-admin/)
-- Flot Charts (https://www.flotcharts.org/)
-- AngleSharp (https://anglesharp.github.io/)
+- [ASP.NET Core 2.0 MVC](https://docs.microsoft.com/en-us/aspnet/core/mvc/overview)
+- [jQuery](https://jquery.com/)
+- [Bootstrap](http://getbootstrap.com/)
+- [StartBootstrap template](https://startbootstrap.com/template-overviews/sb-admin/)
+- [Flot Charts](https://www.flotcharts.org/)
+- [AngleSharp](https://anglesharp.github.io/)
 - Git
-- VSTS CI/CD (https://www.visualstudio.com/team-services/)
-- Azure App Service (https://azure.microsoft.com/en-us/services/app-service/)
-- xUnit (https://xunit.github.io/)
-- AutoFixture (https://github.com/AutoFixture/AutoFixture/wiki)
-- Nsubstitute (http://nsubstitute.github.io/)
-- FluentAssertions (http://fluentassertions.com/)
+- [VSTS CI/CD](https://www.visualstudio.com/team-services/)
+- [Azure App Service](https://azure.microsoft.com/en-us/services/app-service/)
+- [xUnit](https://xunit.github.io/)
+- [AutoFixture](https://github.com/AutoFixture/AutoFixture/wiki)
+- [Nsubstitute](http://nsubstitute.github.io/)
+- [FluentAssertions](http://fluentassertions.com/)
 
 

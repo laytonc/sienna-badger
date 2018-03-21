@@ -14,7 +14,9 @@ wahoo.Search = function (parseUrl) {
 
         function(data) {
             console.log(data);
-            if (data !== null) {
+
+            // check for valid data and success status from angle sharp
+            if (data !== null && data.statusCode === 200) {
                 $("#SummaryTitle").html("Summary - " + parseUrl);
                 $("#WordCount").html(data.wordCount);
                 $("#ImageCount").html(data.images.length);
@@ -26,6 +28,9 @@ wahoo.Search = function (parseUrl) {
                 if (data.images.length > 0) {
                     wahoo.UpdateImageGallery(data.images);
                 }
+            } else {
+                $("#ErrorContainer").show();
+                $("#ErrorMessage").text("We are unable to scrape the URL provided. Please confirm accuracy and try again.");
             }
         })
         .fail(function (response) {

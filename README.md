@@ -4,7 +4,12 @@ A sample application demonstrating how to parse a web page and extract summary d
 
 ![Build Status](https://wahoo.visualstudio.com/_apis/public/build/definitions/32ba30e9-0daf-4a02-b3c9-cf632a9038d7/1/badge)
 
+## Getting Started
+- [Demo](https://wahoo-siennabadger-dev.azurewebsites.net/)
+- [API Documentation](https://wahoo-siennabadger-dev.azurewebsites.net/swagger/)
+
 ## Configuration
+No configuration options are currently provided.
 
 ## Tools Used
 - [ASP.NET Core 2.0 MVC](https://docs.microsoft.com/en-us/aspnet/core/mvc/overview)

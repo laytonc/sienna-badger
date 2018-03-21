@@ -1,11 +1,11 @@
 ﻿using SiennaBadger.Data.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AngleSharp;
+using AngleSharp.Dom;
 using Microsoft.Extensions.Logging;
+using SiennaBadger.Infrastructure.Extensions;
 
 namespace SiennaBadger.Infrastructure.Services
 {
@@ -29,12 +29,45 @@ namespace SiennaBadger.Infrastructure.Services
             // Asynchronously get the document in a new context using the configuration
             var document = await BrowsingContext.New(config).OpenAsync(url);
 
+            // return this so we can respond accordingly via our API
             pageSummary.StatusCode = document.StatusCode;
 
-            // This CSS selector gets the desired content
+            // This CSS selector gets the desired content, for now we will select body element
             var cellSelector = "body";
             // Perform the query to get all cells with the content
             var elements = document.QuerySelectorAll(cellSelector);
+
+            // exclude text from script and style elements.
+            ScrubElements(elements);
+
+
+            var selectedElement = elements.FirstOrDefault();
+            if (selectedElement != null)
+            {
+                var words = selectedElement.TextContent.Words().ToList();
+                // get doc word count
+                pageSummary.WordCount = words.Sum(m=>m.Count);
+
+                // trim down to top 10 words
+                pageSummary.Words = words.OrderByDescending(m=>m.Count).Take(10);
+
+                foreach (var item in document.Images)
+                {
+                    if (!string.IsNullOrEmpty(item.Source))
+                    {
+                        images.Add(new Image() { Url = item.Source });
+                    }
+
+                }
+
+                pageSummary.Images = images;
+            }
+            
+            return pageSummary;
+        }
+
+        private void ScrubElements(IHtmlCollection<IElement> elements)
+        {
             foreach (var element in elements)
             {
                 var scripts = element.GetElementsByTagName("script");
@@ -51,48 +84,6 @@ namespace SiennaBadger.Infrastructure.Services
                     script.Parent.RemoveChild(script);
                 }
             }
-
-
-           
-            var selectedElement = elements.FirstOrDefault();
-            if (selectedElement != null)
-            {
-                // get string of words
-                var text = selectedElement.TextContent;
-
-                // scrub it
-                var scrubbedText = Regex.Replace(text, "[^a-zA-Z0-9% ._]", string.Empty).ToLower();
-
-                // parse words
-                var punctuation = scrubbedText.Where(Char.IsPunctuation).Distinct().ToArray();
-                var words = scrubbedText.Split().Select(x => x.Trim(punctuation));
-                //var words = scrubbedText.Split(" ", StringSplitOptions.RemoveEmptyEntries);
-                var scrubbedWords = words.Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
-
-                // count them
-                pageSummary.WordCount = scrubbedWords.Count;
-                var wordList = scrubbedWords
-                    .GroupBy(word => word)
-                    .Select(kvp => new Word() { Text = kvp.Key, Count = kvp.Count() })
-                    .OrderByDescending(m => m.Count)
-                    .Take(10)
-                    .ToList();
-
-
-                foreach (var item in document.Images)
-                {
-                    if (!string.IsNullOrEmpty(item.Source))
-                    {
-                        images.Add(new Image() { Url = item.Source });
-                    }
-
-                }
-
-                pageSummary.Words = wordList;
-                pageSummary.Images = images;
-            }
-            
-            return pageSummary;
         }
     }
 }

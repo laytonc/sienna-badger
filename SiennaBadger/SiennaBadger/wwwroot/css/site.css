@@ -22,6 +22,13 @@ h5 {
     display:none;
 }
 
+.thumb-container {
+    height: 200px;
+}
+.thumb-container img{
+    max-height: 175px;
+}
+
 @media(min-width:768px) {
     body {
         margin-top: 50px;

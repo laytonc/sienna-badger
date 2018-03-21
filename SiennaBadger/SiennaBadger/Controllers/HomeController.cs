@@ -1,11 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using AngleSharp;
-using AngleSharp.Dom.Html;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using SiennaBadger.Data.Models;
-using SiennaBadger.Models;
+using SiennaBadger.Web.Models;
 
 namespace SiennaBadger.Web.Controllers
 {

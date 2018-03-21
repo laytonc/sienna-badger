@@ -1,6 +1,4 @@
-using System;
-
-namespace SiennaBadger.Models
+namespace SiennaBadger.Web.Models
 {
     public class ErrorViewModel
     {

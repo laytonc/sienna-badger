@@ -2,7 +2,10 @@
 var wahoo = wahoo || {};
 
 wahoo.Search = function (parseUrl) {
+    //reset dashboard per request
     $("#ErrorContainer").hide();
+    wahoo.ClearDashboard();
+
     // call api to scrape web page
     $.post("/api/v1.0/page/parse",
         {
@@ -80,10 +83,16 @@ wahoo.UpdateImageGallery = function(data) {
 
     var galleryHmtl = "";
     for (var i = 0; i < data.length; i++) {
-        galleryHmtl += "<div class=\"col-lg-3 col-md-4 col-xs-6 thumb\"><a target=\"_blank\" class=\"thumbnail\" href=\"" + data[i].url + "\"><img class=\"img- responsive\" src=\"" + data[i].url + "\" alt=\"\"></a><small>imagename.jpg</small><p class=\"help- block small\">400x120</p></div>";
+        galleryHmtl += "<div class=\"col-lg-3 col-md-4 col-xs-6 thumb thumb-container\"><a target=\"_blank\" class=\"thumbnail\" href=\"" + data[i].url + "\"><img class=\"img- responsive\" src=\"" + data[i].url + "\" alt=\"\"></a></div>";
     }
 
     $("#ImageGallery .panel-body").html(galleryHmtl);     
+}
+
+wahoo.ClearDashboard = function () {
+    $("#WordsTable tbody tr").remove();
+    $("#ImageGallery .panel-body").html("");
+    $("#flot-pie-chart").html("");
 }
 
 // simple url validation for now.

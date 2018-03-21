@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SiennaBadger.Data.Models;
 using SiennaBadger.Infrastructure.Services;
 
 namespace SiennaBadger.Web.Controllers
@@ -20,8 +21,14 @@ namespace SiennaBadger.Web.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Returns an Page Summary object.
+        /// </summary>
+        /// <remarks>This call will return summary data for a parsed website page.</remarks>
+        /// <returns><see cref="PageSummary"/></returns>
         [HttpPost]
         [Route("parse")]
+        [Produces(typeof(PageSummary))]
         public async Task<IActionResult> Parse(string parseUrl)
         {
             // validate parseUrl

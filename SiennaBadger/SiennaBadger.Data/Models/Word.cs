@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SiennaBadger.Data.Models
+﻿namespace SiennaBadger.Data.Models
 {
     public class Word
     {

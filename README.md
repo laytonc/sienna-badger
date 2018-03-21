@@ -5,8 +5,9 @@ A sample application demonstrating how to parse a web page and extract summary d
 ![Build Status](https://wahoo.visualstudio.com/_apis/public/build/definitions/32ba30e9-0daf-4a02-b3c9-cf632a9038d7/1/badge)
 
 ## Getting Started
-- [Demo](https://wahoo-siennabadger-dev.azurewebsites.net/)
-- [API Documentation](https://wahoo-siennabadger-dev.azurewebsites.net/swagger/)
+* [Demo](https://wahoo-siennabadger-dev.azurewebsites.net/) - https://wahoo-siennabadger-dev.azurewebsites.net/
+  - [Test Scrape Target](https://wahoo-siennabadger-dev.azurewebsites.net/html/test-basic.html) - https://wahoo-siennabadger-dev.azurewebsites.net/html/test-basic.html
+* [API Documentation](https://wahoo-siennabadger-dev.azurewebsites.net/swagger/)
 
 ## Configuration
 No configuration options are currently provided.
